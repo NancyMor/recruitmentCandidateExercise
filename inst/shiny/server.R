@@ -1,5 +1,6 @@
 library(shiny)
 library(highcharter)
+library(shinydashboard)
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
@@ -39,6 +40,20 @@ server <- function(input, output, session) {
                        search_data <- search_data()
                        mixed_linear_model(search_data)$model})
 
+    output$textWithHTML <- renderUI({
+      rawText <- readLines("../extdata/description.txt")
+
+
+      # split the text into a list of character vectors
+      #   Each element in the list contains one line
+      splitText <- stringi::stri_split(str = rawText, regex = '\\n')
+
+      # wrap a paragraph tag around each element in the list
+      replacedText <- lapply(splitText, p)
+
+      return(replacedText)
+    })
+
     output$spend <- renderHighchart({
         req(search_data())
         descriptive_plot <- highchart() %>%
@@ -69,7 +84,8 @@ server <- function(input, output, session) {
                 hcaes(
                     x = dmy(`Date (Week)`),
                     y = `Search Volume`
-                )
+                ),
+                color = "#957DAD"
             ) %>%
             hc_title(text = "Google Search Volume") %>%
             hc_xAxis(type = 'datetime') %>%
@@ -130,7 +146,7 @@ server <- function(input, output, session) {
                                  line = list(color = '#07A4B5'),
                                  name = "Loess Smoother",
                                  showlegend = FALSE) %>%
-                       layout(title = 'Media Campaign 1')
+                       layout(title = 'Media Campaign 1', xaxis = list(title = ""), yaxis = list(title = ""))
 
        return(linear_plot)
 
@@ -146,7 +162,7 @@ server <- function(input, output, session) {
                                          line = list(color = '#07A4B5'),
                                          name = "Loess Smoother",
                                          showlegend = FALSE) %>%
-                        layout(title = 'Media Campaign 2')
+                        layout(title = 'Media Campaign 2', xaxis = list(title = ""))
         return(linear_plot)
 
     })
@@ -161,7 +177,7 @@ server <- function(input, output, session) {
                                          line = list(color = '#07A4B5'),
                                          name = "Loess Smoother",
                                          showlegend = FALSE) %>%
-                       layout(title = 'Media Campaign 3')
+                       layout(title = 'Media Campaign 3', yaxis = list(title = ""))
         return(linear_plot)
 
     })
@@ -177,7 +193,7 @@ server <- function(input, output, session) {
       #Getting result for total and each campaign
       total <- linear_model %>% .[,r_square( `Search Volume`, `Estimated Search Volume`)]
 
-      box(title = h2(round(total,3), br(), h4("Total Accuracy(R-Squared)")))
+      box(title = h2(round(total,3), br(), h4("Total R-Squared")))
 
     })
 
@@ -221,7 +237,7 @@ server <- function(input, output, session) {
     })
 
     output$model_results <- renderPrint({
-        model <- model()
+       model <- model()
        summary_results <- summary(model)
        print(summary_results)
        # lmerTest::rand(model)
