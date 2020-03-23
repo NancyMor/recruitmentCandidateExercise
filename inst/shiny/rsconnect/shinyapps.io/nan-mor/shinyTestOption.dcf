@@ -5,8 +5,8 @@ account: nan-mor
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1983234
-bundleId: 2914308
+bundleId: 2914422
 url: https://nan-mor.shinyapps.io/shinyTestOption/
-when: 1584990063.32841
+when: 1584991539.0444
 asMultiple: FALSE
 asStatic: FALSE
