@@ -1,0 +1,12 @@
+Package: CampaingAnalysis
+Type: Package
+Title: Campaing Effects in Google Search Volume.
+Version: 0.1.0
+Author: Nancy Morales
+Maintainer: Nancy Morales <nanmorla@gmail.com>
+Description: ShinyApp to detect campaing efficency in Google Search Volume.
+License: LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Imports: data.table, shinythemes, magrittr, highcharter, lubridate, readr, tidyr, dplyr, plyr, lmerTest, lme4
