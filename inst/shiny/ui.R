@@ -1,6 +1,21 @@
 library(shiny)
 library(highcharter)
 library(shinydashboard)
+library(data.table)
+library(magrittr)
+library(magrittr)
+library(shinythemes)
+library(highcharter)
+library(lubridate)
+library(readr)
+library(tidyr)
+library(plyr)
+library(lmerTest)
+library(lme4)
+library(plotly)
+library(shinydashboard)
+
+load("data/sysdata.rda")
 
 
 #Global Settings

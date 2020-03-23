@@ -10,3 +10,8 @@ body,
   margin-bottom: 0px;
   background-color: #D291BC !important;
 }
+
+.navbar-default{
+    background-color:red !important;
+    border-color: green !important;
+}
